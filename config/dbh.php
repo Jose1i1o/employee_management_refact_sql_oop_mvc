@@ -4,6 +4,6 @@
 
 $dsn = "mysql:host=" . $_SERVER["SERVER_NAME"] . ";dbname=employeemngmt";
 $dbusername = "root";
-$dbpassword = "jose3005";
+$dbpassword = "";
 
 $db = new PDO($dsn, $dbusername, $dbpassword);

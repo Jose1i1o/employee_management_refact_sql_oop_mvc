@@ -10,15 +10,21 @@ $("#jsGrid").jsGrid({
   pageSize: 10,
   pageButtonCount: 5,
   deleteConfirm: function (item) {
-    return "The client \"" + item.name + " " + item.lastName + "\" will be removed. Are you sure?";
+    return (
+      'The client "' +
+      item.name +
+      " " +
+      item.lastName +
+      '" will be removed. Are you sure?'
+    );
   },
 
   controller: {
     loadData: function (get) {
       return $.ajax({
         type: "GET",
-        url: "../../src/library/employeeController.php",
-        dataType: 'json',
+        url: "./library/employeeController.php",
+        dataType: "json",
         data: get,
         success: function (get) {
           console.log(get);
@@ -26,14 +32,14 @@ $("#jsGrid").jsGrid({
         error: function (get) {
           console.log(get);
         },
-      })
+      });
     },
     insertItem: function (post) {
       return $.ajax({
         type: "POST",
         url: "../../src/library/employeeController.php",
-        dataType: 'json',
-        data: post
+        dataType: "json",
+        data: post,
       });
     },
     updateItem: function (item) {
@@ -41,7 +47,7 @@ $("#jsGrid").jsGrid({
       return $.ajax({
         type: "PUT",
         url: "../../src/library/employeeController.php",
-        dataType: 'json',
+        dataType: "json",
         data: item,
         success: function (item) {
           console.log(item);
@@ -49,14 +55,14 @@ $("#jsGrid").jsGrid({
         error: function (request, error) {
           console.log(error);
           console.log(request);
-        }
-      })
+        },
+      });
     },
     deleteItem: function (item) {
       return $.ajax({
         type: "DELETE",
         url: "../../src/library/employeeController.php",
-        dataType: 'json',
+        dataType: "json",
         data: item,
         success: function (item) {
           console.log(item);
@@ -64,23 +70,24 @@ $("#jsGrid").jsGrid({
         error: function (request, error) {
           console.log(error);
           console.log(request);
-        }
+        },
       });
     },
   },
 
-  fields: [{
+  fields: [
+    {
       title: "Id",
       name: "id",
       type: "number",
-      css: 'd-none'
+      css: "d-none",
     },
     {
       name: "name",
       title: "Name",
       type: "text",
       width: 50,
-      validate: "required"
+      validate: "required",
     },
     // {
     //   name: "lastName",
@@ -94,13 +101,13 @@ $("#jsGrid").jsGrid({
       title: "Email",
       type: "text",
       width: 80,
-      validate: "required"
+      validate: "required",
     },
     {
       title: "Sex",
       name: "gender",
       type: "text",
-      validate: "required"
+      validate: "required",
     },
     {
       name: "age",
@@ -111,42 +118,42 @@ $("#jsGrid").jsGrid({
         if (value > 18) {
           return true;
         }
-      }
+      },
     },
     {
       title: "Street No.",
       name: "street",
       type: "text",
-      width: 40
+      width: 40,
     },
     {
       name: "postalCode",
       title: "Postal code",
       type: "text",
-      width: 40
+      width: 40,
     },
     {
       name: "phone",
       title: "Phone number",
       type: "text",
-      width: 60
+      width: 60,
     },
     {
       name: "state",
       title: "State",
       type: "text",
-      width: 50
+      width: 50,
     },
     {
       name: "city",
       title: "City",
       type: "text",
-      width: 60
+      width: 60,
     },
     {
-      type: 'hidden',
-      name: 'dashboard',
-      value: 'dashboard'
+      type: "hidden",
+      name: "dashboard",
+      value: "dashboard",
     },
     {
       type: "control",
@@ -156,6 +163,6 @@ $("#jsGrid").jsGrid({
       deleteButtonTooltip: "Delete",
       updateButtonTooltip: "Update",
       cancelEditButtonTooltip: "Cancel edit",
-    }
-  ]
+    },
+  ],
 });

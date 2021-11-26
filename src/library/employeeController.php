@@ -6,7 +6,9 @@ require_once('../../config/dbh.php');
 //Session to get the user id passed from login page
 session_start();
 // DASHBOARD CRUD
+$method = $_SERVER['REQUEST_METHOD'];
 
+var_dump($method);
 //Getting values generated from the ajax get method
 if ($method == 'GET') {
     //Storing values into an array of objects to make a further bind process
@@ -20,15 +22,14 @@ if ($method == 'GET') {
         ':state' => "%" . $_GET['state'] . "%",
         ':postalcode' => "%" . $_GET['postalcode'] . "%",
         ':phone' => "%" . $_GET['phone'] . "%",
-        ':userId' => $_SESSION['id']
+        // ':userId' => $_SESSION['id']
     ];
     // var_dump($data);
     // var_dump($_GET);
 
     //Prepare the SQL call
     $query = "SELECT * FROM employee_edit_name WHERE
-    userId = :userId
-    AND name LIKE :name
+    name LIKE :name
     AND email LIKE :email
     AND gender LIKE :gender
     AND age LIKE :age
@@ -37,7 +38,7 @@ if ($method == 'GET') {
     AND state LIKE :state
     AND postalcode LIKE :postalcode
     AND phone LIKE :phone
-    ORDER BY id DESC
+    -- ORDER BY id DESC
     ";
 
     //Preparing and executing the PDO statement to fetch the data into the database
