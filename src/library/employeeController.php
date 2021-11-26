@@ -2,9 +2,9 @@
 
 require_once('../../config/dbh.php');
 
+
 //Session to get the user id passed from login page
 session_start();
-
 // DASHBOARD CRUD
 
 //Getting values generated from the ajax get method
@@ -22,6 +22,8 @@ if ($method == 'GET') {
         ':phone' => "%" . $_GET['phone'] . "%",
         ':userId' => $_SESSION['id']
     ];
+    // var_dump($data);
+    // var_dump($_GET);
 
     //Prepare the SQL call
     $query = "SELECT * FROM employee_edit_name WHERE

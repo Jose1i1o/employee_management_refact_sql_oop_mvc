@@ -1,17 +1,3 @@
-getJsonData = async () => {
-  let json = null;
-  $.ajax({
-    'async': false,
-    'global': false,
-    'url': "../../src/library/employeeController.php",
-    'dataType': "json",
-    'success': function (data) {
-      json = data;
-    }
-  });
-  return await json;
-};
-
 $("#jsGrid").jsGrid({
   width: "100%",
   height: "600px",
@@ -28,83 +14,81 @@ $("#jsGrid").jsGrid({
   },
 
   controller: {
-    loadData: function (filter) {
-      var d = $.Deferred();
-
+    loadData: function (get) {
       return $.ajax({
-        url: "../../src/library/employeeController.php",
         type: "GET",
-        dataType: "json",
-        success: function (data) {
-          return d.resolve(data);
-        }
-      }).done(function () {
-        console.log("data loaded");
-      });
+        url: "../../src/library/employeeController.php",
+        dataType: 'json',
+        data: get,
+        success: function (get) {
+          console.log(get);
+        },
+        error: function (get) {
+          console.log(get);
+        },
+      })
     },
-    insertItem: async function (item) {
-      var d = $.Deferred();
-
-      const jsonData = await getJsonData();
-      item['id'] = jsonData.length + 1;
-
+    insertItem: function (post) {
       return $.ajax({
         type: "POST",
-        url: "./library/employeeController.php",
-        data: item,
-        success: function (data) {
-          return d.resolve(data);
-        }
-      }).done(function () {
-        console.log("data inserted");
+        url: "../../src/library/employeeController.php",
+        dataType: 'json',
+        data: post
       });
     },
     updateItem: function (item) {
-      var d = $.Deferred();
-
+      console.log(item);
       return $.ajax({
         type: "PUT",
-        url: "./library/employeeController.php",
+        url: "../../src/library/employeeController.php",
+        dataType: 'json',
         data: item,
-        success: function (data) {
-          return d.resolve(data);
+        success: function (item) {
+          console.log(item);
+        },
+        error: function (request, error) {
+          console.log(error);
+          console.log(request);
         }
-      }).done(function () {
-        console.log("data updated");
-      });
+      })
     },
     deleteItem: function (item) {
-      var d = $.Deferred();
-
       return $.ajax({
         type: "DELETE",
-        url: "./library/employeeController.php",
-        data: {
-          id: item.id
+        url: "../../src/library/employeeController.php",
+        dataType: 'json',
+        data: item,
+        success: function (item) {
+          console.log(item);
         },
-        success: function (data) {
-          return d.resolve(data);
+        error: function (request, error) {
+          console.log(error);
+          console.log(request);
         }
-      }).done(function () {
-        console.log("data deleted");
       });
     },
   },
 
   fields: [{
+      title: "Id",
+      name: "id",
+      type: "number",
+      css: 'd-none'
+    },
+    {
       name: "name",
       title: "Name",
       type: "text",
       width: 50,
       validate: "required"
     },
-    {
-      name: "lastName",
-      title: "Last name",
-      type: "text",
-      width: 60,
-      validate: "required"
-    },
+    // {
+    //   name: "lastName",
+    //   title: "Last name",
+    //   type: "text",
+    //   width: 60,
+    //   validate: "required"
+    // },
     {
       name: "email",
       title: "Email",
@@ -113,26 +97,38 @@ $("#jsGrid").jsGrid({
       validate: "required"
     },
     {
+      title: "Sex",
+      name: "gender",
+      type: "text",
+      validate: "required"
+    },
+    {
       name: "age",
       title: "Age",
-      type: "number",
+      type: "text",
       width: 40,
       validate: function (value) {
-        if (value > 0) {
+        if (value > 18) {
           return true;
         }
       }
     },
     {
-      name: "postalCode",
-      title: "Postal code",
-      type: "number",
+      title: "Street No.",
+      name: "street",
+      type: "text",
       width: 40
     },
     {
-      name: "phoneNumber",
+      name: "postalCode",
+      title: "Postal code",
+      type: "text",
+      width: 40
+    },
+    {
+      name: "phone",
       title: "Phone number",
-      type: "number",
+      type: "text",
       width: 60
     },
     {
@@ -142,38 +138,10 @@ $("#jsGrid").jsGrid({
       width: 50
     },
     {
-      name: "gender",
-      title: "Gender",
-      type: "select",
-      items: [{
-          Name: "Man",
-          Id: 'man'
-        },
-        {
-          Name: "Woman",
-          Id: 'woman'
-        },
-        {
-          Name: "Other",
-          Id: 'other'
-        }
-      ],
-      valueField: "Id",
-      textField: "Name",
-      align: "left",
-      width: 40
-    },
-    {
       name: "city",
       title: "City",
       type: "text",
       width: 60
-    },
-    {
-      name: "streetAddress",
-      title: "Street address",
-      type: "text",
-      width: 40
     },
     {
       type: 'hidden',
