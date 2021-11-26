@@ -21,4 +21,5 @@ include_once '../assets/html/header.html';
   </div>
 </div>
 
+
 <?php include_once '../assets/html/footer.html'; ?>

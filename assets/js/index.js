@@ -3,7 +3,7 @@ getJsonData = async () => {
   $.ajax({
     'async': false,
     'global': false,
-    'url': "../resources/employees.json",
+    'url': "../../src/library/employeeController.php",
     'dataType': "json",
     'success': function (data) {
       json = data;
@@ -32,7 +32,7 @@ $("#jsGrid").jsGrid({
       var d = $.Deferred();
 
       return $.ajax({
-        url: "../resources/employees.json",
+        url: "../../src/library/employeeController.php",
         type: "GET",
         dataType: "json",
         success: function (data) {
@@ -92,97 +92,102 @@ $("#jsGrid").jsGrid({
   },
 
   fields: [{
-    name: "name",
-    title: "Name",
-    type: "text",
-    width: 50,
-    validate: "required"
-  },
-  {
-    name: "lastName",
-    title: "Last name",
-    type: "text",
-    width: 60,
-    validate: "required"
-  },
-  {
-    name: "email",
-    title: "Email",
-    type: "text",
-    width: 80,
-    validate: "required"
-  },
-  {
-    name: "age",
-    title: "Age",
-    type: "number",
-    width: 40,
-    validate: function (value) {
-      if (value > 0) {
-        return true;
+      name: "name",
+      title: "Name",
+      type: "text",
+      width: 50,
+      validate: "required"
+    },
+    {
+      name: "lastName",
+      title: "Last name",
+      type: "text",
+      width: 60,
+      validate: "required"
+    },
+    {
+      name: "email",
+      title: "Email",
+      type: "text",
+      width: 80,
+      validate: "required"
+    },
+    {
+      name: "age",
+      title: "Age",
+      type: "number",
+      width: 40,
+      validate: function (value) {
+        if (value > 0) {
+          return true;
+        }
       }
-    }
-  },
-  {
-    name: "postalCode",
-    title: "Postal code",
-    type: "number",
-    width: 40
-  },
-  {
-    name: "phoneNumber",
-    title: "Phone number",
-    type: "number",
-    width: 60
-  },
-  {
-    name: "state",
-    title: "State",
-    type: "text",
-    width: 50
-  },
-  {
-    name: "gender",
-    title: "Gender",
-    type: "select",
-    items: [{
-      Name: "Man",
-      Id: 'man'
     },
     {
-      Name: "Woman",
-      Id: 'woman'
+      name: "postalCode",
+      title: "Postal code",
+      type: "number",
+      width: 40
     },
     {
-      Name: "Other",
-      Id: 'other'
+      name: "phoneNumber",
+      title: "Phone number",
+      type: "number",
+      width: 60
+    },
+    {
+      name: "state",
+      title: "State",
+      type: "text",
+      width: 50
+    },
+    {
+      name: "gender",
+      title: "Gender",
+      type: "select",
+      items: [{
+          Name: "Man",
+          Id: 'man'
+        },
+        {
+          Name: "Woman",
+          Id: 'woman'
+        },
+        {
+          Name: "Other",
+          Id: 'other'
+        }
+      ],
+      valueField: "Id",
+      textField: "Name",
+      align: "left",
+      width: 40
+    },
+    {
+      name: "city",
+      title: "City",
+      type: "text",
+      width: 60
+    },
+    {
+      name: "streetAddress",
+      title: "Street address",
+      type: "text",
+      width: 40
+    },
+    {
+      type: 'hidden',
+      name: 'dashboard',
+      value: 'dashboard'
+    },
+    {
+      type: "control",
+      editButton: true,
+      deleteButton: true,
+      editButtonTooltip: "Edit",
+      deleteButtonTooltip: "Delete",
+      updateButtonTooltip: "Update",
+      cancelEditButtonTooltip: "Cancel edit",
     }
-    ],
-    valueField: "Id",
-    textField: "Name",
-    align: "left",
-    width: 40
-  },
-  {
-    name: "city",
-    title: "City",
-    type: "text",
-    width: 60
-  },
-  {
-    name: "streetAddress",
-    title: "Street address",
-    type: "text",
-    width: 40
-  },
-  {
-    type: "control",
-    editButton: true,
-    deleteButton: true,
-    editButtonTooltip: "Edit",
-    deleteButtonTooltip: "Delete",
-    updateButtonTooltip: "Update",
-    cancelEditButtonTooltip: "Cancel edit",
-  }
   ]
 });

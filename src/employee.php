@@ -6,8 +6,9 @@ checkSession();
 include_once '../assets/html/header.html'
 ?>
 
-<form action="./library/employeeController.php?addEmployee=true" method="POST" class="container mt-4">
+<form action="./library/employeeController.php" method="POST" class="container mt-4">
   <div class="row">
+    <input type="hidden" name="employee" />
     <div class="col-sm-6 form-floating mt-3">
       <label for="floatingName">Name</label>
       <input name="name" type="text" class="form-control" id="floatingName" placeholder="John" data-bs-toggle="tooltip" data-bs-html="true" title="">
@@ -67,5 +68,6 @@ include_once '../assets/html/header.html'
     window.history.back();
   }
 </script>
+
 
 <?php include_once '../assets/html/footer.html'; ?>
