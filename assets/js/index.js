@@ -6,6 +6,7 @@ $("#jsGrid").jsGrid({
   editing: true,
   sorting: true,
   paging: true,
+  pageLoading: true,
   autoload: true,
   pageSize: 10,
   pageButtonCount: 5,
@@ -20,25 +21,38 @@ $("#jsGrid").jsGrid({
   },
 
   controller: {
-    loadData: async function (get) {
-      return await $.ajax({
-        type: "GET",
-        url: "./library/employeeController.php?name&email&gender&age&street&city&state&postalcode&phone",
-        contentType: "application/json",
-        dataType: "json",
-        data: get,
-        success: function (get) {
-          console.log(get);
-          console.log(typeof get);
-        },
-        error: function (get, xhr, status, error) {
-          console.log(xhr.responseText);
-          console.log(status);
-          console.log(error);
-          //console.log(typeof get);
-        },
-      });
+    loadData: async function () {
+      let employees = [];
+      try {
+        employees = await getEmployees();
+        console.log(employees);
+      } catch (error) {
+        console.log(error);
+      }
+      return {
+        data: [employees],
+      };
     },
+    // loadData: async function (get) {
+    //   return await $.ajax({
+    //     type: "GET",
+    //     url: "./library/employeeController.php?name&email&gender&age&street&city&state&postalcode&phone",
+    //     contentType: "application/json",
+    //     dataType: "json",
+    //     data: get,
+    //     success: function (get) {
+    //       console.log(get);
+    //       console.log(typeof get);
+    //       return get;
+    //     },
+    //     error: function (get, xhr, status, error) {
+    //       console.log(xhr.responseText);
+    //       console.log(status);
+    //       console.log(error);
+    //       //console.log(typeof get);
+    //     },
+    //   });
+    // },
     insertItem: function (post) {
       return $.ajax({
         type: "POST",
@@ -166,3 +180,22 @@ $("#jsGrid").jsGrid({
     },
   ],
 });
+
+function getEmployees() {
+  return $.ajax({
+    type: "GET",
+    url: "./library/employeeController.php?action=getAll",
+    contentType: "application/json",
+    dataType: "json",
+    // success: function (get) {
+    //   console.log(get);
+    //   console.log(typeof get);
+    //   return get;
+    // },
+    // error: function (get, xhr, status, error) {
+    //   console.log(xhr.responseText);
+    //   console.log(status);
+    //   console.log(error);
+    // },
+  });
+}

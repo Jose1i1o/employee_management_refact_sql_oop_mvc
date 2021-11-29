@@ -17,25 +17,27 @@ $method = $_SERVER['REQUEST_METHOD'];
 //var_dump($method);
 //var_dump($_GET);
 //Getting values generated from the ajax get method
-if ($method == 'GET') {
-    //Storing values into an array of objects to make a further bind process
-    $data = [
-        ":name" => "%" . $_GET["name"] . "%",
-        ":email" => "%" . $_GET["email"] . "%",
-        ":gender" => "%" . $_GET["gender"] . "%",
-        ":age" => "%" . $_GET["age"] . "%",
-        ":street" => "%" . $_GET["street"] . "%",
-        ":city" => "%" . $_GET["city"] . "%",
-        ":state" => "%" . $_GET["state"] . "%",
-        ":postalcode" => "%" . $_GET["postalcode"] . "%",
-        ":phone" => "%" . $_GET["phone"] . "%"
-        // ':userId' => $_SESSION['id']
-    ];
-    // var_dump($data);
-    // var_dump($_GET);
 
-    //Prepare the SQL call
-    $query = "SELECT * FROM employee_edit_name WHERE
+if ($method == 'GET') {
+    if (!$_GET["action"] == "getAll") {
+        //Storing values into an array of objects to make a further bind process
+        $data = [
+            ":name" => "%" . $_GET["name"] . "%",
+            ":email" => "%" . $_GET["email"] . "%",
+            ":gender" => "%" . $_GET["gender"] . "%",
+            ":age" => "%" . $_GET["age"] . "%",
+            ":street" => "%" . $_GET["street"] . "%",
+            ":city" => "%" . $_GET["city"] . "%",
+            ":state" => "%" . $_GET["state"] . "%",
+            ":postalcode" => "%" . $_GET["postalcode"] . "%",
+            ":phone" => "%" . $_GET["phone"] . "%"
+            // ':userId' => $_SESSION['id']
+        ];
+        // var_dump($data);
+        // var_dump($_GET);
+
+        //Prepare the SQL call
+        $query = "SELECT * FROM employee_edit_name WHERE
     'name' LIKE :name
     AND 'email' LIKE :email
     AND 'gender' LIKE :gender
@@ -47,6 +49,10 @@ if ($method == 'GET') {
     AND 'phone' LIKE :phone
     ORDER BY 'id' ASC
     ";
+    } else {
+        $query = "SELECT * FROM employee_edit_name";
+        $data = null;
+    }
 
     //Preparing and executing the PDO statement to fetch the data into the database
     $getQuery = $db->prepare($query);
