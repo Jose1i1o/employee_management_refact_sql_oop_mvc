@@ -58,12 +58,25 @@ if ($method == 'GET') {
     $getQuery = $db->prepare($query);
     $getQuery->execute($data);
     $result = $getQuery->fetchAll(PDO::FETCH_ASSOC);
-    $results = $result[0];
+
+    foreach ($result as $row) {
+        $output[] = array(
+            'id' => intval($row['id']),
+            'name' => $row['name'],
+            'email' => $row['email'],
+            'gender' => $row['gender'],
+            'age' => $row['age'],
+            'street' => $row['street'],
+            'city' => $row['city'],
+            'state' => $row['state'],
+            'postalcode' => $row['postalcode'],
+            'phone' => $row['phone']
+        );
+    }
 
     header("Content-Type: application/json; charset=utf-8");
-    $json = json_encode($results);
+    echo json_encode($output);
     //print_r($output);
-    print_r($json);
     //json_encode($output);
 }
 

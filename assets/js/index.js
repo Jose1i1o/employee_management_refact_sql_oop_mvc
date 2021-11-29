@@ -26,11 +26,13 @@ $("#jsGrid").jsGrid({
       try {
         employees = await getEmployees();
         console.log(employees);
+        console.log("try");
       } catch (error) {
         console.log(error);
+        console.log("catch");
       }
       return {
-        data: [employees],
+        data: employees,
       };
     },
     // loadData: async function (get) {
