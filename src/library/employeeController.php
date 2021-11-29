@@ -1,27 +1,34 @@
 <?php
 
+
 require_once('../../config/dbh.php');
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 //Session to get the user id passed from login page
 session_start();
 // DASHBOARD CRUD
 $method = $_SERVER['REQUEST_METHOD'];
 
-var_dump($method);
+
+
+//var_dump($method);
+//var_dump($_GET);
 //Getting values generated from the ajax get method
 if ($method == 'GET') {
     //Storing values into an array of objects to make a further bind process
     $data = [
-        ':name' => "%" . $_GET['name'] . "%",
-        ':email' => "%" . $_GET['email'] . "%",
-        ':gender' => "%" . $_GET['gender'] . "%",
-        ':age' => "%" . $_GET['age'] . "%",
-        ':street' => "%" . $_GET['street'] . "%",
-        ':city' => "%" . $_GET['city'] . "%",
-        ':state' => "%" . $_GET['state'] . "%",
-        ':postalcode' => "%" . $_GET['postalcode'] . "%",
-        ':phone' => "%" . $_GET['phone'] . "%"
+        ":name" => "%" . $_GET["name"] . "%",
+        ":email" => "%" . $_GET["email"] . "%",
+        ":gender" => "%" . $_GET["gender"] . "%",
+        ":age" => "%" . $_GET["age"] . "%",
+        ":street" => "%" . $_GET["street"] . "%",
+        ":city" => "%" . $_GET["city"] . "%",
+        ":state" => "%" . $_GET["state"] . "%",
+        ":postalcode" => "%" . $_GET["postalcode"] . "%",
+        ":phone" => "%" . $_GET["phone"] . "%"
         // ':userId' => $_SESSION['id']
     ];
     // var_dump($data);
@@ -29,16 +36,16 @@ if ($method == 'GET') {
 
     //Prepare the SQL call
     $query = "SELECT * FROM employee_edit_name WHERE
-    name LIKE :name
-    AND email LIKE :email
-    AND gender LIKE :gender
-    AND age LIKE :age
-    AND street LIKE :street
-    AND city LIKE :city
-    AND state LIKE :state
-    AND postalcode LIKE :postalcode
-    AND phone LIKE :phone
-    -- ORDER BY id DESC
+    'name' LIKE :name
+    AND 'email' LIKE :email
+    AND 'gender' LIKE :gender
+    AND 'age' LIKE :age
+    AND 'street' LIKE :street
+    AND 'city' LIKE :city
+    AND 'state' LIKE :state
+    AND 'postalcode' LIKE :postalcode
+    AND 'phone' LIKE :phone
+    ORDER BY 'id' ASC
     ";
 
     //Preparing and executing the PDO statement to fetch the data into the database
@@ -49,22 +56,24 @@ if ($method == 'GET') {
     //Printing the data into the dashboard table
     foreach ($result as $row) {
         $output[] = array(
-            'id' => intval($row['id']),
-            'name' => $row['name'],
-            'email' => $row['email'],
-            'gender' => $row['gender'],
-            'age' => $row['age'],
-            'street' => $row['street'],
-            'city' => $row['city'],
-            'state' => $row['state'],
-            'postalcode' => $row['postalcode'],
-            'phone' => $row['phone']
+            "id" => intval($row["id"]),
+            "name" => $row["name"],
+            "email" => $row["email"],
+            "gender" => $row["gender"],
+            "age" => $row["age"],
+            "street" => $row["street"],
+            "city" => $row["city"],
+            "state" => $row["state"],
+            "postalcode" => $row["postalcode"],
+            "phone" => $row["phone"]
         );
     }
 
     header("Content-Type: application/json");
-    var_dump(json_encode($output));
-    var_dump($output);
+    $json = json_encode($output);
+    print_r($output);
+    print_r($json);
+    //json_encode($output);
 }
 
 //Getting values generated from the ajax post method

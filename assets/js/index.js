@@ -20,17 +20,19 @@ $("#jsGrid").jsGrid({
   },
 
   controller: {
-    loadData: function (get) {
-      return $.ajax({
+    loadData: async function (get) {
+      return await $.ajax({
         type: "GET",
-        url: "./library/employeeController.php",
-        dataType: "json",
+        url: "./library/employeeController.php?name&email&gender&age&street&city&state&postalcode&phone",
+        dataType: "application/json",
         data: get,
-        success: function (get) {
-          console.log(get);
+        success: function (data) {
+          console.log(data);
         },
-        error: function (get) {
-          console.log(get);
+        error: function (xhr, status, error) {
+          console.log(xhr.responseText);
+          console.log(status);
+          console.log(error);
         },
       });
     },
@@ -83,8 +85,8 @@ $("#jsGrid").jsGrid({
       css: "d-none",
     },
     {
-      name: "name",
       title: "Name",
+      name: "name",
       type: "text",
       width: 50,
       validate: "required",
@@ -97,8 +99,8 @@ $("#jsGrid").jsGrid({
     //   validate: "required"
     // },
     {
-      name: "email",
       title: "Email",
+      name: "email",
       type: "text",
       width: 80,
       validate: "required",
@@ -110,8 +112,8 @@ $("#jsGrid").jsGrid({
       validate: "required",
     },
     {
-      name: "age",
       title: "Age",
+      name: "age",
       type: "text",
       width: 40,
       validate: function (value) {
@@ -127,26 +129,26 @@ $("#jsGrid").jsGrid({
       width: 40,
     },
     {
-      name: "postalCode",
       title: "Postal code",
+      name: "postalCode",
       type: "text",
       width: 40,
     },
     {
-      name: "phone",
       title: "Phone number",
+      name: "phone",
       type: "text",
       width: 60,
     },
     {
-      name: "state",
       title: "State",
+      name: "state",
       type: "text",
       width: 50,
     },
     {
-      name: "city",
       title: "City",
+      name: "city",
       type: "text",
       width: 60,
     },
