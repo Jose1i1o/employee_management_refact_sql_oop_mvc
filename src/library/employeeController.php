@@ -21,7 +21,7 @@ if ($method == 'GET') {
         ':city' => "%" . $_GET['city'] . "%",
         ':state' => "%" . $_GET['state'] . "%",
         ':postalcode' => "%" . $_GET['postalcode'] . "%",
-        ':phone' => "%" . $_GET['phone'] . "%",
+        ':phone' => "%" . $_GET['phone'] . "%"
         // ':userId' => $_SESSION['id']
     ];
     // var_dump($data);
@@ -63,7 +63,7 @@ if ($method == 'GET') {
     }
 
     header("Content-Type: application/json");
-    echo json_encode($output);
+    var_dump(json_encode($output));
     var_dump($output);
 }
 
