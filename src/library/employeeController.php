@@ -51,27 +51,12 @@ if ($method == 'GET') {
     //Preparing and executing the PDO statement to fetch the data into the database
     $getQuery = $db->prepare($query);
     $getQuery->execute($data);
-    $result = $getQuery->fetchAll();
+    $result = $getQuery->fetchAll(PDO::FETCH_ASSOC);
+    $results = $result[0];
 
-    //Printing the data into the dashboard table
-    foreach ($result as $row) {
-        $output[] = array(
-            "id" => intval($row["id"]),
-            "name" => $row["name"],
-            "email" => $row["email"],
-            "gender" => $row["gender"],
-            "age" => $row["age"],
-            "street" => $row["street"],
-            "city" => $row["city"],
-            "state" => $row["state"],
-            "postalcode" => $row["postalcode"],
-            "phone" => $row["phone"]
-        );
-    }
-
-    header("Content-Type: application/json");
-    $json = json_encode($output);
-    print_r($output);
+    header("Content-Type: application/json; charset=utf-8");
+    $json = json_encode($results);
+    //print_r($output);
     print_r($json);
     //json_encode($output);
 }

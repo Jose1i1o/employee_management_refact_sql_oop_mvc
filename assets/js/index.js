@@ -24,15 +24,18 @@ $("#jsGrid").jsGrid({
       return await $.ajax({
         type: "GET",
         url: "./library/employeeController.php?name&email&gender&age&street&city&state&postalcode&phone",
-        dataType: "application/json",
+        contentType: "application/json",
+        dataType: "json",
         data: get,
-        success: function (data) {
-          console.log(data);
+        success: function (get) {
+          console.log(get);
+          console.log(typeof get);
         },
-        error: function (xhr, status, error) {
+        error: function (get, xhr, status, error) {
           console.log(xhr.responseText);
           console.log(status);
           console.log(error);
+          //console.log(typeof get);
         },
       });
     },
