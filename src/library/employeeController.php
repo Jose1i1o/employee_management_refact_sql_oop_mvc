@@ -64,10 +64,11 @@ if ($method == 'GET') {
 
     header("Content-Type: application/json");
     echo json_encode($output);
+    var_dump($output);
 }
 
 //Getting values generated from the ajax post method
-if ($method == 'POST' && isset($_POST['dashboard'])) {
+if ($method == 'POST' && !isset($_POST['employee'])) {
     //Storing values into an array of objects to make a further bind process
     $data = [
         ':name' => $_POST['name'],

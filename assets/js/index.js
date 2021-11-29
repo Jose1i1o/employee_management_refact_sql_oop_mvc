@@ -151,11 +151,6 @@ $("#jsGrid").jsGrid({
       width: 60,
     },
     {
-      type: "hidden",
-      name: "dashboard",
-      value: "dashboard",
-    },
-    {
       type: "control",
       editButton: true,
       deleteButton: true,
