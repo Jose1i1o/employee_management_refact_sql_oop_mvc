@@ -143,11 +143,16 @@ function destroySessionCookie()
 
 
 
+if (isset($_POST["email"]) && isset($_POST["pass"])) {
+  // Get form input values
+  $email = $_POST["email"];
+  $pass = $_POST["pass"];
+}
 
 if (isset($_GET['action'])) {
 
   $action = $_GET['action'];
-  call_user_func($action, $email, $pass);
+  call_user_func($action, $email, $pass, $db);
 } else {
   $errorMsg = "No action specified";
   require_once VIEWS . 'error/error.php';
@@ -155,12 +160,6 @@ if (isset($_GET['action'])) {
 }
 
 
-
-if (isset($_POST["login"]) && isset($_POST["pass"])) {
-  // Get form input values
-  $email = $_POST["email"];
-  $pass = $_POST["pass"];
-}
 
 
 function logout()
@@ -184,7 +183,7 @@ function authUser($email, $pass, $db)
     $_SESSION["userId"] = $result['id'];
     $_SESSION["lastConnection"] = time();
 
-    require_once CONTROLLERS . 'dashboardController.php';
+    header("Location: index.php?controllers=dashboard");
   } else {
     $_SESSION["loginError"] = "Wrong email or password!";
     require_once VIEWS . 'error/error.php';
