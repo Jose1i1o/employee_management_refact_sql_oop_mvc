@@ -1,13 +1,13 @@
 <?php
-require_once './library/loginManager.php';
+// require_once './library/loginManager.php';
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-checkSession();
+// checkSession();
 
-include_once '../assets/html/header.html';
+include_once './assets/html/header.html';
 ?>
 
 <div class="container-fluid">
@@ -26,4 +26,4 @@ include_once '../assets/html/header.html';
 </div>
 
 
-<?php include_once '../assets/html/footer.html'; ?>
+<?php include_once './assets/html/footer.html'; ?>

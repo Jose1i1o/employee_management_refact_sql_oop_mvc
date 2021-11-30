@@ -1,8 +1,8 @@
 <?php
-require_once("../../src/library/loginManager.php");
+// require_once("src/library/loginManager.php");
 
 //Check for session and error / info messages
-$alert = checkSession();
+// $alert = checkSession();
 ?>
 
 <!doctype html>
@@ -14,7 +14,7 @@ $alert = checkSession();
   <title>PHP Employee Management</title>
 
   <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
 
   <style>
     .bd-placeholder-img {
@@ -33,14 +33,14 @@ $alert = checkSession();
   </style>
 
   <!-- Custom styles for this template -->
-  <link href="../../assets/css/login.css" rel="stylesheet">
+  <link href="./assets/css/login.css" rel="stylesheet">
 </head>
 
 <body class="text-center">
 
   <main class="form-signin">
-    <form action="../../src/library/loginController.php" method="POST">
-      <img src="../../assets/img/assembler_icon.jfif" width="40" height="40" class="me-3" alt="Assembler School">
+    <form action="index.php?controllers=login&action=authUser" method="POST">
+      <img src="./assets/img/assembler_icon.jfif" width="40" height="40" class="me-3" alt="Assembler School">
       <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
       <div class="form-floating">
@@ -58,7 +58,7 @@ $alert = checkSession();
     </form>
   </main>
 
-  <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
