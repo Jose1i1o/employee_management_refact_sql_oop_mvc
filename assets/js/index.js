@@ -156,7 +156,7 @@ $("#jsGrid").jsGrid({
 function getEmployees() {
   return $.ajax({
     type: "GET",
-    url: "./library/employeeController.php?action=getAll",
+    url: "index.php?controller=dashboard&action=getAll",
     contentType: "application/json",
     dataType: "json",
   });
