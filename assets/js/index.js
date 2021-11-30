@@ -51,20 +51,15 @@ $("#jsGrid").jsGrid({
       }
       return { data: updatedEmployee };
     },
-    deleteItem: function (item) {
-      return $.ajax({
-        type: "DELETE",
-        url: "../../src/library/employeeController.php",
-        dataType: "json",
-        data: item,
-        success: function (item) {
-          console.log(item);
-        },
-        error: function (request, error) {
-          console.log(error);
-          console.log(request);
-        },
-      });
+    deleteItem: async function (item) {
+      let updatedEmployee = null;
+      try {
+        updatedEmployee = await deleteEmployees(item);
+        console.log(updatedEmployee);
+      } catch (error) {
+        console.log(error.textResponse);
+      }
+      return { data: updatedEmployee };
     },
   },
 
@@ -176,6 +171,14 @@ function updateEmployees(item) {
   return $.ajax({
     type: "PUT",
     url: "./library/employeeController.php?action=update",
+    data: item,
+  });
+}
+
+function deleteEmployees(item) {
+  return $.ajax({
+    type: "DELETE",
+    url: "./library/employeeController.php?action=delete",
     data: item,
   });
 }
