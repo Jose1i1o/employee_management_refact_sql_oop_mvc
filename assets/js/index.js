@@ -25,11 +25,8 @@ $("#jsGrid").jsGrid({
       let employees = [];
       try {
         employees = await getEmployees();
-        console.log(employees);
-        console.log("try");
       } catch (error) {
-        console.log(error);
-        console.log("catch");
+        console.log(error.textResponse);
       }
       return {
         data: employees,
@@ -39,29 +36,20 @@ $("#jsGrid").jsGrid({
       let newEmployee = null;
       try {
         newEmployee = await insertEmployees(item);
-        console.log(newEmployee);
-        console.log("insert");
       } catch (error) {
-        console.log(error);
-        console.log("not insert");
+        console.log(error.textResponse);
       }
       return { data: newEmployee };
     },
-    updateItem: function (item) {
-      console.log(item);
-      return $.ajax({
-        type: "PUT",
-        url: "../../src/library/employeeController.php",
-        dataType: "json",
-        data: item,
-        success: function (item) {
-          console.log(item);
-        },
-        error: function (request, error) {
-          console.log(error);
-          console.log(request);
-        },
-      });
+    updateItem: async function (item) {
+      let updatedEmployee = null;
+      try {
+        updatedEmployee = await updateEmployees(item);
+        console.log(updatedEmployee);
+      } catch (error) {
+        console.log(error.textResponse);
+      }
+      return { data: updatedEmployee };
     },
     deleteItem: function (item) {
       return $.ajax({
@@ -180,6 +168,14 @@ function insertEmployees(item) {
   return $.ajax({
     type: "POST",
     url: "./library/employeeController.php?action=insertNew",
+    data: item,
+  });
+}
+
+function updateEmployees(item) {
+  return $.ajax({
+    type: "PUT",
+    url: "./library/employeeController.php?action=update",
     data: item,
   });
 }

@@ -156,7 +156,7 @@ if ($method == 'POST' && $_GET['action'] == 'insertNew') {
 
 
 //Getting values generated from the ajax put method
-if ($method == 'PUT') {
+if ($method == 'PUT' && $_GET['action'] == 'update') {
     //Storing values into an array of objects to make a further bind process
     parse_str(file_get_contents("php://input"), $_PUT);
     $stor = $_PUT;
