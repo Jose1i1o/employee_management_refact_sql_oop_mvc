@@ -35,33 +35,17 @@ $("#jsGrid").jsGrid({
         data: employees,
       };
     },
-    // loadData: async function (get) {
-    //   return await $.ajax({
-    //     type: "GET",
-    //     url: "./library/employeeController.php?name&email&gender&age&street&city&state&postalcode&phone",
-    //     contentType: "application/json",
-    //     dataType: "json",
-    //     data: get,
-    //     success: function (get) {
-    //       console.log(get);
-    //       console.log(typeof get);
-    //       return get;
-    //     },
-    //     error: function (get, xhr, status, error) {
-    //       console.log(xhr.responseText);
-    //       console.log(status);
-    //       console.log(error);
-    //       //console.log(typeof get);
-    //     },
-    //   });
-    // },
-    insertItem: function (post) {
-      return $.ajax({
-        type: "POST",
-        url: "../../src/library/employeeController.php",
-        dataType: "json",
-        data: post,
-      });
+    insertItem: async function (item) {
+      let newEmployee = null;
+      try {
+        newEmployee = await insertEmployees(item);
+        console.log(newEmployee);
+        console.log("insert");
+      } catch (error) {
+        console.log(error);
+        console.log("not insert");
+      }
+      return { data: newEmployee };
     },
     updateItem: function (item) {
       console.log(item);
@@ -149,7 +133,7 @@ $("#jsGrid").jsGrid({
     },
     {
       title: "Postal code",
-      name: "postalCode",
+      name: "postalcode",
       type: "text",
       width: 40,
     },
@@ -189,15 +173,13 @@ function getEmployees() {
     url: "./library/employeeController.php?action=getAll",
     contentType: "application/json",
     dataType: "json",
-    // success: function (get) {
-    //   console.log(get);
-    //   console.log(typeof get);
-    //   return get;
-    // },
-    // error: function (get, xhr, status, error) {
-    //   console.log(xhr.responseText);
-    //   console.log(status);
-    //   console.log(error);
-    // },
+  });
+}
+
+function insertEmployees(item) {
+  return $.ajax({
+    type: "POST",
+    url: "./library/employeeController.php?action=insertNew",
+    data: item,
   });
 }
