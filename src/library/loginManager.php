@@ -33,7 +33,11 @@ function checkSession()
   } else {
     if (!isset($_SESSION["email"]) || !isset($_SESSION["lastConnection"])) {
       $_SESSION["loginError"] = "You don't have permission to enter the dashboard. Please Login.";
+<<<<<<< Updated upstream
       header("Location: index.php");
+=======
+      header("Location: ../../views/login/login.php");
+>>>>>>> Stashed changes
     }
 
     if (isset($_SESSION["lastConnection"]) && (time() - $_SESSION["lastConnection"] >= 3000)) {
