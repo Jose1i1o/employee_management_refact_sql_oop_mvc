@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../../config/bootstrap.php';
+require '../../config/bootstrap.php';
 // require_once 'sessionHelper.php';
 
 function checkSession()
