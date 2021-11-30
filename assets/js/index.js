@@ -45,21 +45,19 @@ $("#jsGrid").jsGrid({
       let updatedEmployee = null;
       try {
         updatedEmployee = await updateEmployees(item);
-        console.log(updatedEmployee);
       } catch (error) {
         console.log(error.textResponse);
       }
       return { data: updatedEmployee };
     },
     deleteItem: async function (item) {
-      let updatedEmployee = null;
+      let deleteEmployee = null;
       try {
-        updatedEmployee = await deleteEmployees(item);
-        console.log(updatedEmployee);
+        deleteEmployee = await deleteEmployees(item);
       } catch (error) {
         console.log(error.textResponse);
       }
-      return { data: updatedEmployee };
+      return { data: deleteEmployee };
     },
   },
 

@@ -105,50 +105,47 @@ if ($method == 'POST' && $_GET['action'] == 'insertNew') {
     $getQuery->execute($data);
 }
 
-// if ($method == 'POST' && isset($_POST['employee'])) {
-//     //Getting values generated from the employee form
-//     $name = $_POST["name"];
-//     $name = $_POST["lastName"];
-//     $email = $_POST["email"];
-//     $city = $_POST["city"];
-//     $state = $_POST["state"];
-//     $postCode = $_POST["postalCode"];
-//     $lastName = $_POST["lastName"];
-//     $gender = $_POST["gender"][0];
-//     $streetAddress = $_POST["streetAddress"];
-//     $age = $_POST["age"];
-//     $phoneNumber = $_POST["phoneNumber"];
+if ($method == 'POST' && isset($_POST['employee'])) {
+    //Getting values generated from the employee form
+    $name = $_POST["name"];
+    $name = $_POST["lastName"];
+    $email = $_POST["email"];
+    $city = $_POST["city"];
+    $state = $_POST["state"];
+    $postCode = $_POST["postalCode"];
+    $lastName = $_POST["lastName"];
+    $gender = $_POST["gender"][0];
+    $streetAddress = $_POST["streetAddress"];
+    $age = $_POST["age"];
+    $phoneNumber = $_POST["phoneNumber"];
 
 
-//     //Storing values into an array of objects to make a further bind process
-//     $data = [
-//         ':name' => $name,
-//         ':lastname' => $lastName,
-//         ':email' => $email,
-//         ':gender' => $gender,
-//         ':age' => $age,
-//         ':street' => $streetAddress,
-//         ':city' => $city,
-//         ':state' => $state,
-//         ':postalcode' => $postCode,
-//         ':phone' => $phoneNumber,
-//         ':userId' => $_SESSION['id']
-//     ];
+    //Storing values into an array of objects to make a further bind process
+    $data = [
+        ':name' => $name,
+        ':lastname' => $lastName,
+        ':email' => $email,
+        ':gender' => $gender,
+        ':age' => $age,
+        ':street' => $streetAddress,
+        ':city' => $city,
+        ':state' => $state,
+        ':postalcode' => $postCode,
+        ':phone' => $phoneNumber,
+        //':userId' => $_SESSION['id']
+    ];
 
-//     //Prepare the SQL call
-//     $query = "INSERT INTO employee_edit_name (name, lastname, email, gender, age, street, city, state, postalcode, phone, userId)
-//     VALUES (:name, :lastname, :email, :gender, :age, :street, :city, :state, :postalcode, :phone, :userId)";
+    //Prepare the SQL call
+    $query = "INSERT INTO employee_edit_name (name, lastname, email, gender, age, street, city, state, postalcode, phone)
+    VALUES (:name, :lastname, :email, :gender, :age, :street, :city, :state, :postalcode, :phone)";
 
-//     //Preparing and executing the PDO statement to post the data into the database
-//     $getQuery = $db->prepare($query);
-//     $getQuery->execute($data);
+    //Preparing and executing the PDO statement to post the data into the database
+    $getQuery = $db->prepare($query);
+    $getQuery->execute($data);
 
-//     //Redirecting to dashboard page after new employee post
-//     header("Location: ../dashboard.php");
-
-//     //Getting the method request from the ajax call in the dashboard page
-//     $method = $_SERVER['REQUEST_METHOD'];
-// }
+    //Redirecting to dashboard page after new employee post
+    header("Location: ../dashboard.php");
+}
 
 
 
@@ -192,7 +189,7 @@ if ($method == 'PUT' && $_GET['action'] == 'update') {
 }
 
 //Getting values generated from the ajax delete method
-if ($method == "DELETE") {
+if ($method == "DELETE" && $_GET['action'] == 'delete') {
     parse_str(file_get_contents("php://input"), $_DELETE);
     //Storing value into an array of objects to make a further bind process
     $data = [':id' => $_DELETE["id"]];
