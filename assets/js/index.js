@@ -1,203 +1,206 @@
-$("#jsGrid").jsGrid({
-  width: "100%",
-  height: "600px",
+// function getEmployees() {
+//   return $.ajax({
+//     type: "GET",
+//     url: "./library/employeeController.php?action=getAll",
+//     contentType: "application/json",
+//     dataType: "json",
+//     // success: function (get) {
+//     //   console.log(get);
+//     //   console.log(typeof get);
+//     //   return get;
+//     // },
+//     // error: function (get, xhr, status, error) {
+//     //   console.log(xhr.responseText);
+//     //   console.log(status);
+//     //   console.log(error);
+//     // },
+//   });
+// }
 
-  inserting: true,
-  editing: true,
-  sorting: true,
-  paging: true,
-  pageLoading: true,
-  autoload: true,
-  pageSize: 10,
-  pageButtonCount: 5,
-  deleteConfirm: function (item) {
-    return (
-      'The client "' +
-      item.name +
-      " " +
-      item.lastName +
-      '" will be removed. Are you sure?'
-    );
-  },
+const dataPath = "./library/employeeController.php?action=getAll";
 
-  controller: {
-    loadData: async function () {
-      let employees = [];
-      try {
-        employees = await getEmployees();
-        console.log(employees);
-        console.log("try");
-      } catch (error) {
-        console.log(error);
-        console.log("catch");
-      }
-      return {
-        data: employees,
-      };
+$.getJSON(dataPath).done(function (employeesData) {
+  $("#jsGrid").jsGrid({
+    data: employeesData,
+
+    width: "100%",
+    height: "600px",
+
+    pageLoading: true,
+    pageSize: 10,
+    sortfield: true,
+
+    inserting: true,
+    editing: true,
+    sorting: true,
+    paging: true,
+    pageButtonCount: 5,
+    deleteConfirm: function (item) {
+      return (
+        'The client "' +
+        item.name +
+        " " +
+        item.lastName +
+        '" will be removed. Are you sure?'
+      );
     },
-    // loadData: async function (get) {
-    //   return await $.ajax({
-    //     type: "GET",
-    //     url: "./library/employeeController.php?name&email&gender&age&street&city&state&postalcode&phone",
-    //     contentType: "application/json",
-    //     dataType: "json",
-    //     data: get,
-    //     success: function (get) {
-    //       console.log(get);
-    //       console.log(typeof get);
-    //       return get;
-    //     },
-    //     error: function (get, xhr, status, error) {
-    //       console.log(xhr.responseText);
-    //       console.log(status);
-    //       console.log(error);
-    //       //console.log(typeof get);
-    //     },
-    //   });
-    // },
-    insertItem: function (post) {
-      return $.ajax({
-        type: "POST",
-        url: "../../src/library/employeeController.php",
-        dataType: "json",
-        data: post,
-      });
-    },
-    updateItem: function (item) {
-      console.log(item);
-      return $.ajax({
-        type: "PUT",
-        url: "../../src/library/employeeController.php",
-        dataType: "json",
-        data: item,
-        success: function (item) {
-          console.log(item);
-        },
-        error: function (request, error) {
+
+    controller: {
+      loadData: async function () {
+        try {
+          employeesData;
+          console.log(employeesData);
+          console.log("try");
+        } catch (error) {
           console.log(error);
-          console.log(request);
-        },
-      });
-    },
-    deleteItem: function (item) {
-      return $.ajax({
-        type: "DELETE",
-        url: "../../src/library/employeeController.php",
-        dataType: "json",
-        data: item,
-        success: function (item) {
-          console.log(item);
-        },
-        error: function (request, error) {
-          console.log(error);
-          console.log(request);
-        },
-      });
-    },
-  },
-
-  fields: [
-    {
-      title: "Id",
-      name: "id",
-      type: "number",
-      css: "d-none",
-    },
-    {
-      title: "Name",
-      name: "name",
-      type: "text",
-      width: 50,
-      validate: "required",
-    },
-    // {
-    //   name: "lastName",
-    //   title: "Last name",
-    //   type: "text",
-    //   width: 60,
-    //   validate: "required"
-    // },
-    {
-      title: "Email",
-      name: "email",
-      type: "text",
-      width: 80,
-      validate: "required",
-    },
-    {
-      title: "Sex",
-      name: "gender",
-      type: "text",
-      validate: "required",
-    },
-    {
-      title: "Age",
-      name: "age",
-      type: "text",
-      width: 40,
-      validate: function (value) {
-        if (value > 18) {
-          return true;
+          console.log("catch");
         }
+        return {
+          data: employeesData,
+        };
+      },
+      // loadData: async function (get) {
+      //   return await $.ajax({
+      //     type: "GET",
+      //     url: "./library/employeeController.php?name&email&gender&age&street&city&state&postalcode&phone",
+      //     contentType: "application/json",
+      //     dataType: "json",
+      //     data: get,
+      //     success: function (get) {
+      //       console.log(get);
+      //       console.log(typeof get);
+      //       return get;
+      //     },
+      //     error: function (get, xhr, status, error) {
+      //       console.log(xhr.responseText);
+      //       console.log(status);
+      //       console.log(error);
+      //       //console.log(typeof get);
+      //     },
+      //   });
+      // },
+      insertItem: function (post) {
+        return $.ajax({
+          type: "POST",
+          url: "../../src/library/employeeController.php",
+          data: post,
+        });
+      },
+      updateItem: function (item) {
+        console.log(item);
+        return $.ajax({
+          type: "PUT",
+          url: "../../src/library/employeeController.php",
+          data: item,
+          success: function (item) {
+            console.log(item);
+          },
+          error: function (request, error) {
+            console.log(error);
+            console.log(request);
+          },
+        });
+      },
+      deleteItem: function (item) {
+        return $.ajax({
+          type: "DELETE",
+          url: "../../src/library/employeeController.php",
+          dataType: "json",
+          data: item,
+          success: function (item) {
+            console.log(item);
+          },
+          error: function (request, error) {
+            console.log(error);
+            console.log(request);
+          },
+        });
       },
     },
-    {
-      title: "Street No.",
-      name: "street",
-      type: "text",
-      width: 40,
-    },
-    {
-      title: "Postal code",
-      name: "postalCode",
-      type: "text",
-      width: 40,
-    },
-    {
-      title: "Phone number",
-      name: "phone",
-      type: "text",
-      width: 60,
-    },
-    {
-      title: "State",
-      name: "state",
-      type: "text",
-      width: 50,
-    },
-    {
-      title: "City",
-      name: "city",
-      type: "text",
-      width: 60,
-    },
-    {
-      type: "control",
-      editButton: true,
-      deleteButton: true,
-      editButtonTooltip: "Edit",
-      deleteButtonTooltip: "Delete",
-      updateButtonTooltip: "Update",
-      cancelEditButtonTooltip: "Cancel edit",
-    },
-  ],
-});
 
-function getEmployees() {
-  return $.ajax({
-    type: "GET",
-    url: "./library/employeeController.php?action=getAll",
-    contentType: "application/json",
-    dataType: "json",
-    // success: function (get) {
-    //   console.log(get);
-    //   console.log(typeof get);
-    //   return get;
-    // },
-    // error: function (get, xhr, status, error) {
-    //   console.log(xhr.responseText);
-    //   console.log(status);
-    //   console.log(error);
-    // },
+    fields: [{
+        title: "Id",
+        name: "id",
+        type: "number",
+        css: "d-none",
+      },
+      {
+        title: "Name",
+        name: "name",
+        type: "text",
+        width: 50,
+        validate: "required",
+      },
+      // {
+      //   name: "lastName",
+      //   title: "Last name",
+      //   type: "text",
+      //   width: 60,
+      //   validate: "required"
+      // },
+      {
+        title: "Email",
+        name: "email",
+        type: "text",
+        width: 80,
+        validate: "required",
+      },
+      {
+        title: "Sex",
+        name: "gender",
+        type: "text",
+        validate: "required",
+      },
+      {
+        title: "Age",
+        name: "age",
+        type: "text",
+        width: 40,
+        validate: function (value) {
+          if (value > 18) {
+            return true;
+          }
+        },
+      },
+      {
+        title: "Street No.",
+        name: "street",
+        type: "text",
+        width: 40,
+      },
+      {
+        title: "Postal code",
+        name: "postalCode",
+        type: "text",
+        width: 40,
+      },
+      {
+        title: "Phone number",
+        name: "phone",
+        type: "text",
+        width: 60,
+      },
+      {
+        title: "State",
+        name: "state",
+        type: "text",
+        width: 50,
+      },
+      {
+        title: "City",
+        name: "city",
+        type: "text",
+        width: 60,
+      },
+      {
+        type: "control",
+        editButton: true,
+        deleteButton: true,
+        editButtonTooltip: "Edit",
+        deleteButtonTooltip: "Delete",
+        updateButtonTooltip: "Update",
+        cancelEditButtonTooltip: "Cancel edit",
+      },
+    ],
   });
-}
+});

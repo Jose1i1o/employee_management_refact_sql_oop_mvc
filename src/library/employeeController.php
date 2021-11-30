@@ -30,8 +30,8 @@ if ($method == 'GET') {
             ":city" => "%" . $_GET["city"] . "%",
             ":state" => "%" . $_GET["state"] . "%",
             ":postalcode" => "%" . $_GET["postalcode"] . "%",
-            ":phone" => "%" . $_GET["phone"] . "%"
-            // ':userId' => $_SESSION['id']
+            ":phone" => "%" . $_GET["phone"] . "%",
+            ':userId' => $_SESSION['id']
         ];
         // var_dump($data);
         // var_dump($_GET);

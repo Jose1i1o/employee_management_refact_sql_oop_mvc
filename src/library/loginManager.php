@@ -1,5 +1,6 @@
 <?php
 require __DIR__ . '/../../config/bootstrap.php';
+include("../../config/dbh.php");
 // require_once 'sessionHelper.php';
 
 function checkSession()
@@ -17,7 +18,7 @@ function checkSession()
     }
 
     if (isset($_SESSION["email"])) {
-      header("Location:./src/dashboard.php");
+      header("Location: src/dashboard.php");
     } else {
 
       // Check for session error
@@ -32,7 +33,7 @@ function checkSession()
   } else {
     if (!isset($_SESSION["email"]) || !isset($_SESSION["lastConnection"])) {
       $_SESSION["loginError"] = "You don't have permission to enter the dashboard. Please Login.";
-      header("Location:../index.php");
+      header("Location: index.php");
     }
 
     if (isset($_SESSION["lastConnection"]) && (time() - $_SESSION["lastConnection"] >= 3000)) {
@@ -75,6 +76,32 @@ function destroySession()
   header("Location:../../index.php?logout=true");
 }
 
+function get($params)
+{
+  // Start session
+  session_start();
+
+  // Get form input values
+  $email = $params['email'];
+  print_r($db);
+  try {
+    $item = [];
+    $query = $db->prepare("SELECT * FROM users WHERE email = :email");
+    $query->bindParam(':email', $email);
+    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+      $item = array(
+        'id' => $row['id'],
+        'email' => $row['email'],
+        'password' => $row['password'],
+        'fullname' => $row['fullname']
+      );
+    }
+    return $item;
+  } catch (PDOException $e) {
+    echo $e->getMessage();
+  }
+}
+
 function authUser()
 {
   // Start session
@@ -84,6 +111,7 @@ function authUser()
   $email = $_POST["email"];
   $pass = $_POST["pass"];
 
+
   // Now we should look for this values in a database
   // Instead we'll use static vars
   if (checkUser($email, $pass)) {
@@ -92,10 +120,10 @@ function authUser()
     // we save the last connection
     $_SESSION["lastConnection"] = time();
     // when we check that the email and password is correct, we redirect the user to the dashboard
-    header("Location:../dashboard.php");
+    header("Location: src/dashboard.php");
   } else {
     $_SESSION["loginError"] = "Wrong email or password!";
-    header("Location:../../index.php");
+    header("Location: index.php");
   }
 }
 
