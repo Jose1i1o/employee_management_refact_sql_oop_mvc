@@ -81,7 +81,7 @@ if ($method == 'GET') {
 }
 
 //Getting values generated from the ajax post method
-if ($method == 'POST' && !isset($_POST['employee'])) {
+if ($method == 'POST' && $_GET['action'] == 'insertNew') {
     //Storing values into an array of objects to make a further bind process
     $data = [
         ':name' => $_POST['name'],
@@ -132,12 +132,12 @@ if ($method == 'POST' && isset($_POST['employee'])) {
         ':state' => $state,
         ':postalcode' => $postCode,
         ':phone' => $phoneNumber,
-        ':userId' => $_SESSION['id']
+        //':userId' => $_SESSION['id']
     ];
 
     //Prepare the SQL call
-    $query = "INSERT INTO employee_edit_name (name, lastname, email, gender, age, street, city, state, postalcode, phone, userId)
-    VALUES (:name, :lastname, :email, :gender, :age, :street, :city, :state, :postalcode, :phone, :userId)";
+    $query = "INSERT INTO employee_edit_name (name, lastname, email, gender, age, street, city, state, postalcode, phone)
+    VALUES (:name, :lastname, :email, :gender, :age, :street, :city, :state, :postalcode, :phone)";
 
     //Preparing and executing the PDO statement to post the data into the database
     $getQuery = $db->prepare($query);
@@ -145,9 +145,6 @@ if ($method == 'POST' && isset($_POST['employee'])) {
 
     //Redirecting to dashboard page after new employee post
     header("Location: ../dashboard.php");
-
-    //Getting the method request from the ajax call in the dashboard page
-    $method = $_SERVER['REQUEST_METHOD'];
 }
 
 
@@ -156,7 +153,7 @@ if ($method == 'POST' && isset($_POST['employee'])) {
 
 
 //Getting values generated from the ajax put method
-if ($method == 'PUT') {
+if ($method == 'PUT' && $_GET['action'] == 'update') {
     //Storing values into an array of objects to make a further bind process
     parse_str(file_get_contents("php://input"), $_PUT);
     $stor = $_PUT;
@@ -192,7 +189,7 @@ if ($method == 'PUT') {
 }
 
 //Getting values generated from the ajax delete method
-if ($method == "DELETE") {
+if ($method == "DELETE" && $_GET['action'] == 'delete') {
     parse_str(file_get_contents("php://input"), $_DELETE);
     //Storing value into an array of objects to make a further bind process
     $data = [':id' => $_DELETE["id"]];
