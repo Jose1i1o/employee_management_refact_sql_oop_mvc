@@ -1,6 +1,5 @@
 <?php
 require __DIR__ . '/../../config/bootstrap.php';
-include("../../config/dbh.php");
 // require_once 'sessionHelper.php';
 
 function checkSession()
@@ -18,7 +17,7 @@ function checkSession()
     }
 
     if (isset($_SESSION["email"])) {
-      header("Location: src/dashboard.php");
+      header("Location: ../dashboard.php");
     } else {
 
       // Check for session error
@@ -33,7 +32,7 @@ function checkSession()
   } else {
     if (!isset($_SESSION["email"]) || !isset($_SESSION["lastConnection"])) {
       $_SESSION["loginError"] = "You don't have permission to enter the dashboard. Please Login.";
-      header("Location: index.php");
+      header("Location: ../../index.php");
     }
 
     if (isset($_SESSION["lastConnection"]) && (time() - $_SESSION["lastConnection"] >= 3000)) {
@@ -76,33 +75,7 @@ function destroySession()
   header("Location:../../index.php?logout=true");
 }
 
-function get($params)
-{
-  // Start session
-  session_start();
-
-  // Get form input values
-  $email = $params['email'];
-  print_r($db);
-  try {
-    $item = [];
-    $query = $db->prepare("SELECT * FROM users WHERE email = :email");
-    $query->bindParam(':email', $email);
-    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-      $item = array(
-        'id' => $row['id'],
-        'email' => $row['email'],
-        'password' => $row['password'],
-        'fullname' => $row['fullname']
-      );
-    }
-    return $item;
-  } catch (PDOException $e) {
-    echo $e->getMessage();
-  }
-}
-
-function authUser()
+function authUser($db)
 {
   // Start session
   session_start();
@@ -111,43 +84,49 @@ function authUser()
   $email = $_POST["email"];
   $pass = $_POST["pass"];
 
+  $query = $db->prepare("SELECT * FROM user WHERE email = :email AND password = :pass");
+  $query->bindParam(':email', $email);
+  $query->bindParam(':pass', $pass);
 
   // Now we should look for this values in a database
+  $query->execute();
+  $result = $query->fetch(PDO::FETCH_ASSOC);
   // Instead we'll use static vars
-  if (checkUser($email, $pass)) {
+  if ($result == true) {
     // we usually save in a session variable user id and other user data like name, surname....
     $_SESSION["email"] = $email;
+    $_SESSION["userId"] = $result['id'];
     // we save the last connection
     $_SESSION["lastConnection"] = time();
     // when we check that the email and password is correct, we redirect the user to the dashboard
-    header("Location: src/dashboard.php");
+    header("Location: ../dashboard.php");
   } else {
     $_SESSION["loginError"] = "Wrong email or password!";
-    header("Location: index.php");
+    header("Location: ../../index.php");
   }
 }
 
-function checkUser(string $email, string $pass)
-{
-  $jsonData = file_get_contents('../../resources/users.json');
-  $usersData = json_decode($jsonData, true);
-  $users = $usersData["users"];
+// function checkUser(string $email, string $pass)
+// {
+//   $jsonData = file_get_contents('../../resources/users.json');
+//   $usersData = json_decode($jsonData, true);
+//   $users = $usersData["users"];
 
-  foreach ($users as $user) {
-    if (array_search(
-      $email,
-      $user
-    ) !== false) {
-      $currentUser = $user;
-    }
-  }
+//   foreach ($users as $user) {
+//     if (array_search(
+//       $email,
+//       $user
+//     ) !== false) {
+//       $currentUser = $user;
+//     }
+//   }
 
-  if (isset($currentUser) && password_verify($pass, $currentUser["password"])) {
-    return true;
-  } else {
-    return false;
-  }
-}
+//   if (isset($currentUser) && password_verify($pass, $currentUser["password"])) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
 function destroySessionCookie()
 {
