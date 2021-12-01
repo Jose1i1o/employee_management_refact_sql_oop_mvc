@@ -18,7 +18,7 @@ function destroyLastSession()
 
   // Destroy the session
   session_destroy();
-  header("Location: index.php?timeExpire=true");
+  header("Location: index.php");
 }
 
 function destroySession()
@@ -34,7 +34,8 @@ function destroySession()
 
   // Destroy the session
   session_destroy();
-  header("Location: index.php?logout=true");
+  // require_once VIEWS . 'login/login.php';
+  header("Location: index.php");
 }
 
 
@@ -66,7 +67,11 @@ if (isset($_POST["email"]) && isset($_POST["pass"])) {
 if (isset($_GET['action'])) {
 
   $action = $_GET['action'];
-  call_user_func($action, $email, $pass, $db);
+  if (isset($email, $pass, $db)) {
+    call_user_func($action, $email, $pass, $db);
+  } else {
+    call_user_func($action);
+  }
 } else {
   $errorMsg = "No action specified";
   require_once VIEWS . 'error/error.php';
@@ -92,7 +97,7 @@ function authUser($email, $pass, $db)
     $_SESSION["userId"] = $result['id'];
     $_SESSION["lastConnection"] = time();
 
-    header("Location: views/dashboard/dashboard.php");
+    header("Location: index.php?controllers=dashboard&action=getAll");
   } else {
     $_SESSION["loginError"] = "Wrong email or password!";
     require_once VIEWS . 'error/error.php';

@@ -22,7 +22,7 @@ if (isset($_SESSION["userId"])) {
 
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
-    call_user_func($action, $userId, $db);
+    call_user_func($action, $db, $userId);
 } else {
     $errorMsg = "No action specified";
     require_once VIEWS . 'error/error.php';
@@ -34,7 +34,7 @@ function getAll($db, $userId)
     $result = getEmployees($db, $userId);
 
     if ($result == true) {
-        header("Location:" . VIEWS . "dashboard.php");
+        require_once VIEWS . "dashboard/dashboard.php";
     } else {
         $_SESSION["loginError"] = "Wrong email or password!";
         require_once VIEWS . 'error/error.php';

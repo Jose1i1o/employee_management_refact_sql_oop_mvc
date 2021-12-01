@@ -25,8 +25,10 @@ $("#jsGrid").jsGrid({
       let employees = [];
       try {
         employees = await getEmployees();
+        console.log("try");
       } catch (error) {
         console.log(error.textResponse);
+        console.log("catch");
       }
       return {
         data: employees,
@@ -156,7 +158,7 @@ $("#jsGrid").jsGrid({
 function getEmployees() {
   return $.ajax({
     type: "GET",
-    url: "index.php?controller=dashboard&action=getAll",
+    url: "../../index.php?controller=dashboard&action=getAll",
     contentType: "application/json",
     dataType: "json",
   });

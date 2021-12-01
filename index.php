@@ -3,8 +3,6 @@
 require_once('./config/dbh.php');
 require_once('./config/constants.php');
 
-echo getControllerPath($_GET['controllers']);
-
 if (isset($_GET['controllers'])) {
   $controllers = getControllerPath($_GET['controllers']);
 
