@@ -21,30 +21,18 @@ $("#jsGrid").jsGrid({
   },
 
   controller: {
-    loadData: () =>
-      fetch(
-        "http://localhost/employee_management_refact_sql_oop_mvc/controllers/employees/read",
-        {
-          headers: {
-            "X-Requested-With": "XMLHttpRequest",
-          },
-        }
-      ).then((response) => {
-        console.log(response);
-        return response.json();
-      }),
-    // loadData: async function () {
-    //   let employees = [];
-    //   try {
-    //     employees = await getEmployees();
-    //     console.log(employees);
-    //   } catch (error) {
-    //     console.log(error.responseText);
-    //   }
-    //   return {
-    //     data: employees,
-    //   };
-    // },
+    loadData: async function () {
+      let employees = [];
+      try {
+        employees = await getEmployees();
+        console.log(employees);
+      } catch (error) {
+        console.log(error.responseText);
+      }
+      return {
+        data: employees,
+      };
+    },
     insertItem: async function (item) {
       let newEmployee = null;
       try {
@@ -170,8 +158,8 @@ $("#jsGrid").jsGrid({
 function getEmployees() {
   return $.ajax({
     type: "GET",
-    url: `http://localhost/employee_management_refact_sql_oop_mvc/controllers/employees/read`,
-    //contentType: "application/json",
+    url: "employees/read",
+    contentType: "application/json",
     dataType: "json",
   });
 }
