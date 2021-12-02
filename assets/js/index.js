@@ -68,8 +68,7 @@ $("#jsGrid").jsGrid({
     },
   },
 
-  fields: [
-    {
+  fields: [{
       title: "Id",
       name: "id",
       type: "number",
@@ -167,7 +166,7 @@ function getEmployees() {
 function insertEmployees(item) {
   return $.ajax({
     type: "POST",
-    url: "./library/employeeController.php?action=insertNew",
+    url: "employees/create",
     data: item,
   });
 }
@@ -175,7 +174,7 @@ function insertEmployees(item) {
 function updateEmployees(item) {
   return $.ajax({
     type: "PUT",
-    url: "./library/employeeController.php?action=update",
+    url: "employees/update",
     data: item,
   });
 }

@@ -28,6 +28,7 @@ class LoginController extends Controller
             // if (password_verify($_POST['password'], $result->password)) {
             $this->session->init();
             $this->session->add('email', $result->email);
+            $this->session->add('userId', $result->id);
             $this->session->add('timeout', time());
 
             header('Location: ' . BASE_URL . 'employees');
