@@ -13,7 +13,7 @@ class EmployeesModel extends Model
 
       $employees = null;
       $this->db->connect();
-      $this->db->query("SELECT * FROM employees_edit_name WHERE userId = (SELECT id FROM user WHERE email = :email)");
+      $this->db->query("SELECT * FROM employee_edit_name WHERE userId = (SELECT id FROM user WHERE email = :email)");
       $this->db->bind(':email', $email);
       $employees = $this->db->dataSet();
       return $employees;

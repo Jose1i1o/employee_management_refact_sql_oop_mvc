@@ -21,17 +21,30 @@ $("#jsGrid").jsGrid({
   },
 
   controller: {
-    loadData: async function () {
-      let employees = [];
-      try {
-        employees = await getEmployees();
-      } catch (error) {
-        console.log(error.textResponse);
-      }
-      return {
-        data: employees,
-      };
-    },
+    loadData: () =>
+      fetch(
+        "http://localhost/employee_management_refact_sql_oop_mvc/controllers/employees/read",
+        {
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+          },
+        }
+      ).then((response) => {
+        console.log(response);
+        return response.json();
+      }),
+    // loadData: async function () {
+    //   let employees = [];
+    //   try {
+    //     employees = await getEmployees();
+    //     console.log(employees);
+    //   } catch (error) {
+    //     console.log(error.responseText);
+    //   }
+    //   return {
+    //     data: employees,
+    //   };
+    // },
     insertItem: async function (item) {
       let newEmployee = null;
       try {
@@ -40,7 +53,7 @@ $("#jsGrid").jsGrid({
         console.log(error.textResponse);
       }
       return {
-        data: newEmployee
+        data: newEmployee,
       };
     },
     updateItem: async function (item) {
@@ -51,7 +64,7 @@ $("#jsGrid").jsGrid({
         console.log(error.textResponse);
       }
       return {
-        data: updatedEmployee
+        data: updatedEmployee,
       };
     },
     deleteItem: async function (item) {
@@ -62,12 +75,13 @@ $("#jsGrid").jsGrid({
         console.log(error.textResponse);
       }
       return {
-        data: deleteEmployee
+        data: deleteEmployee,
       };
     },
   },
 
-  fields: [{
+  fields: [
+    {
       title: "Id",
       name: "id",
       type: "number",
@@ -156,8 +170,8 @@ $("#jsGrid").jsGrid({
 function getEmployees() {
   return $.ajax({
     type: "GET",
-    url: "./library/employeeController.php?action=getAll",
-    contentType: "application/json",
+    url: `http://localhost/employee_management_refact_sql_oop_mvc/controllers/employees/read`,
+    //contentType: "application/json",
     dataType: "json",
   });
 }
