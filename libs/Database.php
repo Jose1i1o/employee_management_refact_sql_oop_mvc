@@ -13,6 +13,10 @@ class Database
         $this->db = "employeemngmt";
         $this->user = "root";
         $this->password = "";
+        // $this->host = $_SERVER['HTTP_HOST'];
+        // $this->db = "employeemngmt";
+        // $this->user = "root";
+        // $this->password = "";
     }
 
     public function connect()

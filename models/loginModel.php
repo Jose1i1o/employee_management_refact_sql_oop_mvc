@@ -13,6 +13,17 @@ class LoginModel extends Model
     {
         $email = $params['email'];
         try {
+            $item = [];
+            $query = $this->db->connect()->query("SELECT * FROM users WHERE email = '{$email}'");
+            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                $item = new User(
+                    $row['id'],
+                    $row['name'],
+                    $row['email'],
+                    $row['password']
+                );
+            }
+            return $item;
         } catch (PDOException $error) {
             throw new Exception($error->getMessage());
         }

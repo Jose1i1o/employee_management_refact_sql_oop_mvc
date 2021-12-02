@@ -1,3 +1,5 @@
+<?php var_dump("I am at login") ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -7,7 +9,7 @@
     <title>PHP Employee Management</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>node_modules/bootstrap/dist/css/bootstrap.min.css">
 
     <style>
         .bd-placeholder-img {
@@ -26,14 +28,14 @@
     </style>
 
     <!-- Custom styles for this template -->
-    <link href="./assets/css/login.css" rel="stylesheet">
+    <link href="<?= BASE_URL ?>assets/css/login.css" rel="stylesheet">
 </head>
 
 <body class="text-center">
 
     <main class="form-signin">
-        <form action="./src/library/loginController.php" method="POST">
-            <img src="./assets/img/assembler_icon.jfif" width="40" height="40" class="me-3" alt="Assembler School">
+        <form action="<?= BASE_URL ?>login/signIn" method="POST">
+            <img src="<?= BASE_URL ?>assets/img/assembler_icon.jfif" width="40" height="40" class="me-3" alt="Assembler School">
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
             <div class="form-floating">
@@ -44,14 +46,14 @@
                 <label for="floatingPassword">Password</label>
                 <input name="pass" type="password" class="form-control" id="floatingPassword" placeholder="Password" title="Assemb13r">
             </div>
-            <?= ($alert) ? "<div class='alert alert-$alert[type] role='alert'>$alert[text]</div>" : "" ?>
+            <?php echo $this->message ?>
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
             <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
 
         </form>
     </main>
 
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= BASE_URL ?>node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

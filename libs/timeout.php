@@ -1,6 +1,6 @@
 <?php
 
-require_once(LIBS . 'session.php');
+require_once(LIBS . '/session.php');
 
 class Timeout
 {

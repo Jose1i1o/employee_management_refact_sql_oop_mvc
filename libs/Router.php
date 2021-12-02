@@ -1,7 +1,8 @@
 <?php
 
-require_once(CONTROLLERS . '/erroController.php');
-require_once(LIBS . '/timeout.php');
+// require_once(CONTROLLERS . '/errorController.php');
+// require_once(LIBS . '/timeout.php');
+
 
 class Router
 {
@@ -51,6 +52,7 @@ class Router
         // When there is no controller defined
         if (empty($this->controller)) {
             $fileController = CONTROLLERS . '/' . 'loginController.php';
+            var_dump("$fileController");
             require_once($fileController);
 
             $controller = new LoginController();
@@ -58,9 +60,43 @@ class Router
             $controller->render();
             return;
         }
+        // check user timeout
+        if ($this->controller !== "login") {
+            $fileController = CONTROLLERS . '/' . 'loginController.php';
+            require_once($fileController);
+
+            $this->timeOut = new Timeout();
+
+            if ($this->timeOut->checkUserTime()) {
+                $this->login = new LoginController();
+                $this->login->signOut();
+                return;
+            }
+        }
+
+        $fileController = CONTROLLERS . '/' . $this->controller . 'Controller.php';
+        $classController =  ucfirst($this->controller) . 'Controller';
+
+        if (file_exists($fileController)) {
+            require_once($fileController);
+            $controller = new $classController;
+            $controller->loadModel($this->controller);
+
+            try {
+                if (!empty($this->method)) {
+                    $controller->{$this->method}($this->param);
+                }
+            } catch (Throwable $th) {
+                $controller = new errorController(
+                    'Error loading method ' . $this->method
+                );
+            }
+        } else {
+            $controller = new errorController(
+                'Error loading controller ' . $this->controller
+            );
+        }
     }
-
-
 
 
     public function getUri()
