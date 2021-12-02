@@ -1,7 +1,7 @@
 <?php
 
-// require_once(CONTROLLERS . '/errorController.php');
-// require_once(LIBS . '/timeout.php');
+require_once(CONTROLLERS . '/errorController.php');
+require_once(LIBS . '/timeout.php');
 
 
 class Router
@@ -17,6 +17,7 @@ class Router
         $this->setController();
         $this->setMethod();
         $this->setParam();
+        $this->loadUriRequest();
     }
 
     public function setUri()
@@ -48,11 +49,9 @@ class Router
 
     public function loadUriRequest()
     {
-
         // When there is no controller defined
         if (empty($this->controller)) {
             $fileController = CONTROLLERS . '/' . 'loginController.php';
-            var_dump("$fileController");
             require_once($fileController);
 
             $controller = new LoginController();
@@ -65,13 +64,13 @@ class Router
             $fileController = CONTROLLERS . '/' . 'loginController.php';
             require_once($fileController);
 
-            $this->timeOut = new Timeout();
+            // $this->timeOut = new Timeout();
 
-            if ($this->timeOut->checkUserTime()) {
-                $this->login = new LoginController();
-                $this->login->signOut();
-                return;
-            }
+            // if ($this->timeOut->checkUserTime()) {
+            //     $this->login = new LoginController();
+            //     $this->login->signOut();
+            //     return;
+            // }
         }
 
         $fileController = CONTROLLERS . '/' . $this->controller . 'Controller.php';
