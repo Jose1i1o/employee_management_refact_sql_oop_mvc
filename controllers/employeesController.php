@@ -1,19 +1,17 @@
 <?php
 
-class TestController extends Controller
+class EmployeesController extends Controller
 {
   public function __construct()
   {
     parent::__construct();
-    $this->view->message = 'Test';
+    $this->view->message = 'Employees';
     $this->session = new Session();
     $this->session->init();
-    echo "I am the test";
-    echo "<br>";
   }
 
   public function render()
   {
-    $this->view->render('test');
+    $this->view->render('employees/employees');
   }
 }

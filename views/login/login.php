@@ -44,7 +44,7 @@
       </div>
       <div class="form-floating">
         <label for="floatingPassword">Password</label>
-        <input name="pass" type="password" class="form-control" id="floatingPassword" placeholder="Password"
+        <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password"
           title="Assemb13r">
       </div>
       <?php echo $this->message ?>

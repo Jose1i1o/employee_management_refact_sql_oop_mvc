@@ -7,24 +7,21 @@ class LoginModel extends Model
 
     function __construct()
     {
+        parent::__construct();
     }
 
     public function get($params)
     {
         $email = $params['email'];
         try {
-            $item = [];
-            $query = $this->db->connect()->query("SELECT * FROM users WHERE email = '{$email}'");
-            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-                $item = new User(
-                    $row['id'],
-                    $row['name'],
-                    $row['email'],
-                    $row['password']
-                );
-            }
+            $item = null;
+            $this->db->connect();
+            $this->db->query("SELECT * FROM user WHERE email = :email");
+            $this->db->bind(':email', $email);
+            $item = $this->db->singleData();
             return $item;
         } catch (PDOException $error) {
+            echo $error;
             throw new Exception($error->getMessage());
         }
     }

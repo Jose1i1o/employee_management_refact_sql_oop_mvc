@@ -1,6 +1,6 @@
 <?php
 
-class TestModel
+class EmployeesModel
 {
   public function __construct()
   {
