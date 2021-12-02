@@ -8,20 +8,24 @@ class Session
             session_start();
     }
 
-    public function add()
+    public function add($key, $value)
     {
+        $_SESSION[$key] = $value;
     }
 
     public function remove()
     {
     }
 
-    public function get()
+    public function get($key)
     {
+        $value = $_SESSION[$key];
+        return $value;
     }
 
     public function getAll()
     {
+        return $_SESSION;
     }
 
     public function close()

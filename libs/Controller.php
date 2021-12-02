@@ -4,6 +4,7 @@ abstract class Controller
 {
     function __construct()
     {
+        $this->session = new Session;
         $this->view = new View();
     }
 
