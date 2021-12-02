@@ -9,10 +9,10 @@ class Database
 
     public function __construct()
     {
-        $this->host = HOST;
-        $this->db = DATABASE;
-        $this->user = USER;
-        $this->password = PASSWORD;
+        $this->host = $_SERVER['HTTP_HOST'];
+        $this->db = "employeemngmt";
+        $this->user = "root";
+        $this->password = "";
     }
 
     public function connect()

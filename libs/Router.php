@@ -1,6 +1,7 @@
 <?php
 
 require_once(CONTROLLERS . '/erroController.php');
+require_once(LIBS . '/timeout.php');
 
 class Router
 {
@@ -37,6 +38,30 @@ class Router
     {
         $this->param = !empty($this->uri[4]) ? $this->uri[4] : '';
     }
+
+    public function __get($property)
+    {
+        if (property_exists($this, $property))
+            return $this->$property;
+    }
+
+    public function loadUriRequest()
+    {
+
+        // When there is no controller defined
+        if (empty($this->controller)) {
+            $fileController = CONTROLLERS . '/' . 'loginController.php';
+            require_once($fileController);
+
+            $controller = new LoginController();
+            $controller->loadModel('loginModel');
+            $controller->render();
+            return;
+        }
+    }
+
+
+
 
     public function getUri()
     {
