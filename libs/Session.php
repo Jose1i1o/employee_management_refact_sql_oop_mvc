@@ -19,8 +19,8 @@ class Session
 
     public function get($key)
     {
-        $value = $_SESSION[$key];
-        return $value;
+        return !empty($_SESSION[$key]) ? $_SESSION[$key] : null;
+
     }
 
     public function getAll()

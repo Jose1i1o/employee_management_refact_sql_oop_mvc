@@ -92,4 +92,52 @@ class EmployeesModel extends Model
       throw new Exception($error->getMessage());
     }
   }
+
+  public function delete($id)
+  {
+    $query = $this->db->connect()->prepare("DELETE FROM employee_edit_name WHERE id = :id");
+    try {
+      $query->execute([
+        'id' => $id,
+      ]);
+      return true;
+    } catch (PDOException $error) {
+      throw new Exception($error->getMessage());
+    }
+  }
+
+  public function insert(array $data)
+    {
+        // $age = ['age'];
+        // $postalCode = ['postalcode'];
+        // $gender = ['gender'];
+        // $lastname = ['lastname'];
+        try {
+          $employee = null;
+          $this->db->connect();
+          $this->db->query(
+            "INSERT INTO employee_edit_name (name, lastName, email, gender, age, street, city, state, postalcode, phone, userId)
+            VALUES (:name, :lastName, :email, :gender, :age, :street, :city, :state, :postalcode, :phone, :userId)"
+          );
+
+            $this->db->bind(':name', $name);
+            $this->db->bind(':lastName', $lastName);
+            $this->db->bind(':email', $email);
+            $this->db->bind(':gender', $gender);
+            $this->db->bind(':age', $age);
+            $this->db->bind(':street', $street);
+            $this->db->bind(':city', $city);
+            $this->db->bind(':state', $state);
+            $this->db->bind(':postalcode', $postalcode);
+            $this->db->bind(':phone', $phone);
+            $this->db->bind(':userId', $userId);
+
+            $employee = $this->db->execute();
+            return $employee;
+
+            return true;
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
 }

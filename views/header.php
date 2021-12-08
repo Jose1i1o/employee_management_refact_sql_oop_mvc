@@ -57,15 +57,15 @@
     <a class="navbar-brand px-3 m-0" href="#">Employees Management</a>
     <ul class="navbar-nav d-flex flex-row justify-content-start mr-auto px-2">
       <li class="nav-item text-nowrap px-2">
-        <a class="nav-link" href="./dashboard.php">Dashboard</a>
+        <a class="nav-link" href="<?= BASE_URL . 'employees' ?>">Dashboard</a>
       </li>
       <li class="nav-item text-nowrap px-2">
-        <a class="nav-link" href="./employee.php">Employee</a>
+        <a class="nav-link" href="<?= BASE_URL . 'employees/employeeForm' ?>">Employee</a>
       </li>
     </ul>
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap px-2">
-        <a class="nav-link" href="./library/loginController.php?logout=true">Sign out</a>
+        <a class="nav-link" href="<?= BASE_URL . 'login/signOut' ?>">Sign out</a>
       </li>
     </ul>
   </header>

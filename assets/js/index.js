@@ -1,3 +1,37 @@
+function getEmployees() {
+  return $.ajax({
+    type: "GET",
+    url: "employees/read",
+    contentType: "application/json",
+    dataType: "json",
+  });
+}
+
+function insertEmployees(item) {
+  return $.ajax({
+    type: "POST",
+    url: "employees/create",
+    data: item,
+  });
+}
+
+function updateEmployees(item) {
+  return $.ajax({
+    type: "PUT",
+    url: "employees/update",
+    data: item,
+  });
+}
+
+function deleteEmployee(item) {
+  return $.ajax({
+    type: "DELETE",
+    url: "employees/deleteEmployee",
+    data: item,
+    dataType: "json",
+  });
+}
+
 $("#jsGrid").jsGrid({
   width: "100%",
   height: "600px",
@@ -56,9 +90,9 @@ $("#jsGrid").jsGrid({
       };
     },
     deleteItem: async function (item) {
-      let deleteEmployee = null;
+      let deleteEmployee = [];
       try {
-        deleteEmployee = await deleteEmployees(item);
+        deleteEmployee = await deleteEmployee(item);
       } catch (error) {
         console.log(error.textResponse);
       }
@@ -154,35 +188,3 @@ $("#jsGrid").jsGrid({
   ],
 });
 
-function getEmployees() {
-  return $.ajax({
-    type: "GET",
-    url: "employees/read",
-    contentType: "application/json",
-    dataType: "json",
-  });
-}
-
-function insertEmployees(item) {
-  return $.ajax({
-    type: "POST",
-    url: "employees/create",
-    data: item,
-  });
-}
-
-function updateEmployees(item) {
-  return $.ajax({
-    type: "PUT",
-    url: "employees/update",
-    data: item,
-  });
-}
-
-function deleteEmployees(item) {
-  return $.ajax({
-    type: "DELETE",
-    url: "./library/employeeController.php?action=delete",
-    data: item,
-  });
-}

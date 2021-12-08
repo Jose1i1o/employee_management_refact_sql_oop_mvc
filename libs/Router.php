@@ -64,13 +64,13 @@ class Router
             $fileController = CONTROLLERS . '/' . 'loginController.php';
             require_once($fileController);
 
-            // $this->timeOut = new Timeout();
+            $this->timeOut = new Timeout();
 
-            // if ($this->timeOut->checkUserTime()) {
-            //     $this->login = new LoginController();
-            //     $this->login->signOut();
-            //     return;
-            // }
+            if ($this->timeOut->checkSessionTime()) {
+                $this->login = new LoginController();
+                $this->login->signOut();
+                return;
+            }
         }
 
         $fileController = CONTROLLERS . '/' . $this->controller . 'Controller.php';
