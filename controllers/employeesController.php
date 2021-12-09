@@ -50,6 +50,7 @@ class EmployeesController extends Controller
       $employees = $this->model->createEmployee($name, $email, $gender, $age, $streetAddress, $city, $state, $postCode, $phoneNumber, $userId);
       echo json_encode($employees);
       http_response_code(200);
+      header('Location: ' . BASE_URL . 'employees');
     } catch (Throwable $th) {
       http_response_code(400);
       throw new Exception($th->getMessage());
@@ -75,6 +76,7 @@ class EmployeesController extends Controller
         $employee = $this->model->updateEmployee($name, $email, $gender, $age, $streetAddress, $city, $state, $postCode, $phoneNumber, $id);
         echo $employee;
         http_response_code(200);
+        header('Location: ' . BASE_URL . 'employees');
       } catch (Throwable $th) {
         http_response_code(400);
         throw new Exception($th->getMessage());
@@ -83,14 +85,15 @@ class EmployeesController extends Controller
   public function deleteEmployee($id)
   {
     try {
-      $this->session->init();
-      $userId = $this->session->get('userId');
+      // $this->session->init();
+      // $userId = $this->session->get('userId');
 
       parse_str(file_get_contents("php://input"), $_DELETE);
       $id = intval($_DELETE['id']); // maybe i will need interval as in update
-      $idSession = $this->model->delete($id);
-      echo json_encode($idSession);
+      $idDelete = $this->model->delete($id);
+      echo json_encode($idDelete);
       http_response_code(200);
+      header('Location: ' . BASE_URL . 'employees');
     } catch (Throwable $th) {
       echo json_encode(['message' =>  "Error deleting {$_DELETE['name']}:" . $th->getMessage()]);
       http_response_code(400);
@@ -99,11 +102,7 @@ class EmployeesController extends Controller
   public function employeeForm(){
     $this->view->render('employees/newEmployee');
   }
-
-
-
-
-
+  
   public function insertEmployee()
   {
       try {

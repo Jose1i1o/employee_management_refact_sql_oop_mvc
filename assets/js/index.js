@@ -26,7 +26,7 @@ function updateEmployees(item) {
 function deleteEmployee(item) {
   return $.ajax({
     type: "DELETE",
-    url: "employees/deleteEmployee",
+    url: "employees/deleteEmployee/ + ${item.id}",
     data: item,
     dataType: "json",
   });
@@ -89,16 +89,8 @@ $("#jsGrid").jsGrid({
         data: updatedEmployee,
       };
     },
-    deleteItem: async function (item) {
-      let deleteEmployee = [];
-      try {
-        deleteEmployee = await deleteEmployee(item);
-      } catch (error) {
-        console.log(error.textResponse);
-      }
-      return {
-        data: deleteEmployee,
-      };
+    deleteItem: function(item) {
+      deleteEmployee(item);
     },
   },
 

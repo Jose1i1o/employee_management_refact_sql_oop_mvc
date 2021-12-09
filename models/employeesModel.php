@@ -108,10 +108,6 @@ class EmployeesModel extends Model
 
   public function insert(array $data)
     {
-        // $age = ['age'];
-        // $postalCode = ['postalcode'];
-        // $gender = ['gender'];
-        // $lastname = ['lastname'];
         try {
           $employee = null;
           $this->db->connect();

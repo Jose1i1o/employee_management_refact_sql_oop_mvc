@@ -2,7 +2,7 @@
 require_once VIEWS . '/header.php';
 ?>
 
-<form class="newEmployee" action="<?= BASE_URL ?>employees/insertEmployee" method="POST" class="container mt-4">
+<form class="newEmployee m-5" action="<?= BASE_URL ?>employees/insertEmployee" method="POST" class="container mt-4">
   <div class="row">
     <input type="hidden" name="employee" />
     <div class="col-sm-6 form-floating mt-3">
@@ -11,31 +11,31 @@ require_once VIEWS . '/header.php';
     </div>
     <div class="col-sm-6 form-floating mt-3">
       <label for="floatingLastName">Last name</label>
-      <input name="lastName" type="text" class="form-control" id="floatingLastName" placeholder="Doe" title="">
+      <input name="lastName" type="text" class="form-control" id="floatingLastName" placeholder="Mace" title="">
     </div>
     <div class="col-sm-6 form-floating mt-3">
       <label for="floatingEmail">Email address</label>
-      <input name="email" type="email" class="form-control" id="floatingEmail" placeholder="john.doe@example.com" data-bs-toggle="tooltip" data-bs-html="true" title="">
+      <input name="email" type="email" class="form-control" id="floatingEmail" placeholder="john.mace@example.com" data-bs-toggle="tooltip" data-bs-html="true" title="">
     </div>
     <div class="col-sm-6 form-floating mt-3">
       <label for="floatingGender">Gender</label>
-      <input name="gender" class="form-control" id="floatingGender"  placeholder="Man, Woman, etc." title="">
+      <input name="gender" class="form-control" id="floatingGender"  placeholder="E.g. Male" title="">
     </div>
     <div class="col-sm-6 form-floating mt-3">
       <label for="floatingCity">City</label>
-      <input name="city" type="text" class="form-control" id="floatingCity" placeholder="Barcelona" title="">
+      <input name="city" type="text" class="form-control" id="floatingCity" placeholder="Granada" title="">
     </div>
     <div class="col-sm-6 form-floating mt-3">
       <label for="floatingStreetAddress">Street address</label>
-      <input name="streetAddress" type="text" class="form-control" id="floatingStreetAddress" placeholder="324" data-bs-toggle="tooltip" data-bs-html="true" title="">
+      <input name="streetAddress" type="text" class="form-control" id="floatingStreetAddress" placeholder="Machu Pichu" data-bs-toggle="tooltip" data-bs-html="true" title="">
     </div>
     <div class="col-sm-6 form-floating mt-3">
       <label for="floatingState">State</label>
-      <input name="state" type="text" class="form-control" id="floatingState" placeholder="Catalunya" title="">
+      <input name="state" type="text" class="form-control" id="floatingState" placeholder="Andalusia" title="">
     </div>
     <div class="col-sm-6 form-floating mt-3">
       <label for="floatingAge">Age</label>
-      <input name="age" type="number" class="form-control" id="floatingAge" placeholder="18" data-bs-toggle="tooltip" data-bs-html="true" title="">
+      <input name="age" type="number" class="form-control" id="floatingAge" placeholder="+18" data-bs-toggle="tooltip" data-bs-html="true" title="">
     </div>
     <div class="col-sm-6 form-floating mt-3">
       <label for="floatingPostalCode">Postal code</label>
@@ -43,10 +43,10 @@ require_once VIEWS . '/header.php';
     </div>
     <div class="col-sm-6 form-floating mt-3">
       <label for="floatingPhoneNumber">Phone number</label>
-      <input name="phoneNumber" type="number" class="form-control" id="floatingPhoneNumber" placeholder="666666666" data-bs-toggle="tooltip" data-bs-html="true" title="">
+      <input name="phoneNumber" type="number" class="form-control" id="floatingPhoneNumber" placeholder="XXX-XXX-XXX" data-bs-toggle="tooltip" data-bs-html="true" title="">
     </div>
     <div class="col-12 form-floating mt-3">
-      <?= ($alert) ? "<div class='alert alert-$alert[type] role='alert'>$alert[text]</div>" : "" ?>
+    <?php echo $this->message ?>
     </div>
     <div class="col-12 form-floating mt-3">
       <button class="btn btn-primary" id="submitBtn" type="submit">Submit</button>
