@@ -39,7 +39,7 @@ require_once VIEWS . '/header.php';
     </div>
     <div class="col-sm-6 form-floating mt-3">
       <label for="floatingPostalCode">Postal code</label>
-      <input name="postalCode" type="number" class="form-control" id="floatingPostalCode" placeholder="Catalunya" title="">
+      <input name="postalCode" type="number" class="form-control" id="floatingPostalCode" placeholder="18270" title="">
     </div>
     <div class="col-sm-6 form-floating mt-3">
       <label for="floatingPhoneNumber">Phone number</label>
